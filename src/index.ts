@@ -1,4 +1,7 @@
 import { Option, Vec } from "@rbxts/rust-classes";
+import { Entity } from "entities";
+import { Component } from "entity_ref";
+import { World } from "world";
 
 export interface GenerationalIndex {
 	index: number;
@@ -53,40 +56,19 @@ class GenerationalIndexArray<T> implements GenerationalIndexArray<T> {
 
 class AnyMap {
 	insert<T>(t: T): void {}
-
+    
 	get<T>(): Option<T> {
 		return Option.none();
 	}
 }
 
-type Entity = GenerationalIndex;
-type EntityMap<T> = GenerationalIndexArray<T>;
-
-type Component = {};
-type Resource = {};
-
-interface ECS {
-	entity_allocator: GenerationalIndexAllocator;
-	entity_components: AnyMap;
-	resources: AnyMap;
-}
-
-class ECS {
-	get_component<T extends Component>(component: T): Option<EntityMap<T>> {
-		return Option.none();
-	}
-
-	get_resource<T extends Resource>(): Option<T> {
-		return Option.none();
-	}
-}
 
 class ComponentRegistry {
 	public register_component<T extends Component>(): void {}
 
-	public setup_ecs(ecs: ECS): void {}
+	public setup_world(ecs: World): void {}
 
-	public load_entity(json: string, ecs: ECS): Entity {
+	public load_entity(json: string, ecs: World): Entity {
 		return 1 as never;
 	}
 }
@@ -94,9 +76,9 @@ class ComponentRegistry {
 class ResourceRegistry {
 	public register_resource<T extends Resource>(): void {}
 
-	public setup_ecs(ecs: ECS): void {}
+	public setup_world(world: World): void {}
 
-	public load_resource(json: string, ecs: ECS): void {}
+	public load_resource(json: string, ecs: World): void {}
 }
 
 interface PhysicsComponent {}
@@ -121,3 +103,5 @@ class Registry {
 	public components = load_component_registry();
 	public resources = load_resource_registry();
 }
+
+type Resource = {}
