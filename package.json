@@ -36,6 +36,8 @@
   "dependencies": {
     "@rbxts/object-utils": "^1.0.4",
     "@rbxts/rbxts-pattern": "^1.0.1",
-    "@rbxts/t": "^2.1.5"
+    "@rbxts/t": "^2.1.5",
+    "@rbxts/testez": "^0.3.1-ts.7",
+    "@rbxts/todo": "^1.0.0"
   }
 }
