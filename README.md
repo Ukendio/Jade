@@ -10,6 +10,15 @@ const world = new World()
 const a = world.spawn(123, true, "abc");
 const b = world.spawn(42, false);
 
+const entities = world
+	.query<[number, boolean]>()
+	.iter()
+	.map(([e, [i, b]]) => [e, i, b] as const)
+	.collect();
+
+expect(entities.len()).to.equal(2);
+expect(entities.contains([a, 123, true])).to.equal(true);
+
 // Systems can be simple for loops
 for (let [id, number, flag] of entities.generator()) {
 	if (flag) {
