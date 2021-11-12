@@ -7,8 +7,8 @@ Attempt at porting [Hecs](https://github.com/Ralith/hecs) made by Ralith to Robl
 ```ts
 const world = new World()
 // Literally anything can be a component! 
-const a = world.spawn((123, true, "abc"));
-const b = world.spawn((42, false));
+const a = world.spawn(123, true, "abc");
+const b = world.spawn(42, false);
 
 // Systems can be simple for loops
 for (let [id, number, flag] of entities.generator()) {
