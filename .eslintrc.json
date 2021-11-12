@@ -29,6 +29,7 @@
 				"useTabs": true,
 				"endOfLine": "auto"
 			}
-		]
+		],
+		"prefer-const": "off"
 	}
 }

@@ -2,6 +2,7 @@ import { Option, Result } from "@rbxts/rust-classes";
 import { Archetype } from "./archetype";
 import { Entity, NoSuchEntity } from "./entities";
 import { NonNull } from "./non_null";
+import todo from "@rbxts/todo";
 
 export type Component = defined;
 
@@ -50,6 +51,8 @@ export class Ref<a, T extends Component> {
 	}
 
 	static default<a, T extends Component>(archetype: Archetype<a>, index: number): Result<Ref<a, T>, NoSuchEntity> {
+		todo();
+		/*
 		return archetype.get_state().match(
 			(state) => {
 				const target = new NonNull<T>(archetype.get_base<T>(state).as_ref());
@@ -59,6 +62,7 @@ export class Ref<a, T extends Component> {
 			},
 			() => Result.err(NoSuchEntity),
 		);
+		*/
 	}
 
 	public deref(): T {

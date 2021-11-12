@@ -2,6 +2,7 @@ import { Option, Vec } from "@rbxts/rust-classes";
 import { Entity } from "entities";
 import { Component } from "entity_ref";
 import { World } from "world";
+import todo from "@rbxts/todo";
 
 export interface GenerationalIndex {
 	index: number;
@@ -27,15 +28,15 @@ export class GenerationalIndexAllocator implements IGenerationalIndexAllocator {
 	public free = Vec.vec<number>();
 
 	public allocate(): GenerationalIndex {
-		return 1 as never;
+		todo();
 	}
 
 	public deallocate(): boolean {
-		return true;
+		todo();
 	}
 
 	public is_live(generational_index: GenerationalIndex): boolean {
-		return true;
+		todo();
 	}
 }
 
@@ -50,26 +51,33 @@ class GenerationalIndexArray<T> implements GenerationalIndexArray<T> {
 	public constructor() {}
 	public set(index: GenerationalIndex, value: T): void {}
 	get(index: GenerationalIndex): Option<T> {
-		return Option.none();
+		todo();
 	}
 }
 
 class AnyMap {
 	insert<T>(t: T): void {}
-    
+
 	get<T>(): Option<T> {
-		return Option.none();
+		todo();
 	}
 }
 
+/**
+ * BELOW IS JUST TYPE PROTOTYPES
+ */
 
 class ComponentRegistry {
-	public register_component<T extends Component>(): void {}
+	public register_component<T extends Component>(): void {
+		todo();
+	}
 
-	public setup_world(ecs: World): void {}
+	public setup_world(ecs: World): void {
+		todo();
+	}
 
 	public load_entity(json: string, ecs: World): Entity {
-		return 1 as never;
+		todo();
 	}
 }
 
@@ -81,21 +89,17 @@ class ResourceRegistry {
 	public load_resource(json: string, ecs: World): void {}
 }
 
-interface PhysicsComponent {}
-
 function load_component_registry(): ComponentRegistry {
 	const component_registry = new ComponentRegistry();
 
-	component_registry.register_component<PhysicsComponent>();
+	component_registry.register_component();
 	return component_registry;
 }
-
-interface BlocksResource {}
 
 function load_resource_registry(): ResourceRegistry {
 	const resource_registry = new ResourceRegistry();
 
-	resource_registry.register_resource<BlocksResource>();
+	resource_registry.register_resource();
 	return resource_registry;
 }
 
@@ -104,4 +108,4 @@ class Registry {
 	public resources = load_resource_registry();
 }
 
-type Resource = {}
+type Resource = {};

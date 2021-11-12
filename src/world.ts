@@ -1,16 +1,12 @@
-import { HashMap,  Result, Vec } from "@rbxts/rust-classes";
+import { HashMap, Result, Vec } from "@rbxts/rust-classes";
 import { Component, EntityRef, Ref } from "./entity_ref";
 import { Entities, Entity, NoSuchEntity } from "./entities";
 import { Archetype } from "./archetype";
 import todo from "@rbxts/todo";
 
-class QueryBorrow<w extends World, Q extends Query>{
+class QueryBorrow<w extends World, Q extends Query> {}
 
-}
-
-class Query {
-
-}
+class Query {}
 export class World {
 	public constructor(
 		private entity_to_component = HashMap.empty<Entity, defined>(),
@@ -40,7 +36,7 @@ export class World {
 	}
 
 	public query<Components extends Array<defined>>(): Vec<[Entity, Components]> {
-		todo()
+		todo();
 	}
 
 	public entity(entity: Entity): Result<EntityRef<defined>, NoSuchEntity> {
@@ -57,4 +53,3 @@ export class World {
 
 export const ComponentError = "ComponentError";
 export type ComponentError = typeof ComponentError;
-
