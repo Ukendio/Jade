@@ -10,7 +10,6 @@ describe("", () => {
 		const a = world.spawn(123, true, "abc");
 		const b = world.spawn(456, false);
 
-		world.query();
 		let entities = world
 			.query<[number, boolean]>()
 			.iter()
@@ -25,6 +24,9 @@ describe("", () => {
 				number *= 2;
 			}
 		}
+
+		expect(world.get<number>(a).unwrap().deref()).to.equal(123);
+		expect(world.get<number>(b).unwrap().deref()).to.equal(246);
 	});
 });
 
