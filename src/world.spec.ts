@@ -1,7 +1,5 @@
 /// <reference types="@rbxts/testez/globals" />
 
-import { Vec } from "@rbxts/rust-classes";
-import { Entity } from "entities";
 import { World } from "./world";
 
 describe("", () => {
@@ -29,5 +27,3 @@ describe("", () => {
 		expect(world.get<number>(b).unwrap().deref()).to.equal(246);
 	});
 });
-
-Promise.race([new Promise<Callback>((resolve) => resolve(() => {}))]).then((fn) => fn());
