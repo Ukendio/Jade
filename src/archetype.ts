@@ -2,7 +2,7 @@ import { HashMap, Iterator, Option, Result, Vec } from "@rbxts/rust-classes";
 import { NoSuchEntity } from "./entities";
 import type { Component } from "./entity_ref";
 import { NonNull } from "./non_null";
-import todo from "@rbxts/todo";
+import { todo } from "@rbxts/todo";
 
 interface TypeInfo {
 	id: TypeId;
@@ -70,7 +70,7 @@ class OrderedTypeIdMap<V> {
 	}
 
 	public search(id: TypeId): Option<number> {
-		return binary_search_by_key(this._0.asPtr(), todo(), todo()).okOption();
+		todo();
 	}
 
 	public contains_key(id: TypeId): boolean {
