@@ -2,7 +2,7 @@ import { Option, Result } from "@rbxts/rust-classes";
 import { Archetype } from "./archetype";
 import { Entity, NoSuchEntity } from "./entities";
 import { NonNull } from "./non_null";
-import todo from "@rbxts/todo";
+import { todo } from "@rbxts/todo";
 
 export type Component = defined;
 

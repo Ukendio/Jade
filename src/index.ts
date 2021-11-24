@@ -4,6 +4,7 @@ import { Component } from "entity_ref";
 import { World } from "world";
 import todo from "@rbxts/todo";
 
+export { World, Component, Entity };
 export interface GenerationalIndex {
 	index: number;
 	generation: number;
