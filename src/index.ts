@@ -1,8 +1,8 @@
 import { Option, Vec } from "@rbxts/rust-classes";
-import { Entity } from "entities";
-import { Component } from "entity_ref";
-import { World } from "world";
-import todo from "@rbxts/todo";
+import { Entity } from "./entities";
+import { Component } from "./entity_ref";
+import { World } from "./world";
+import { todo } from "@rbxts/todo";
 
 export { World, Component, Entity };
 export interface GenerationalIndex {
@@ -51,15 +51,15 @@ interface GenerationalIndexArray<T> {}
 class GenerationalIndexArray<T> implements GenerationalIndexArray<T> {
 	public constructor() {}
 	public set(index: GenerationalIndex, value: T): void {}
-	get(index: GenerationalIndex): Option<T> {
+	public get(index: GenerationalIndex): Option<T> {
 		todo();
 	}
 }
 
 class AnyMap {
-	insert<T>(t: T): void {}
+	public insert<T>(t: T): void {}
 
-	get<T>(): Option<T> {
+	public get<T>(): Option<T> {
 		todo();
 	}
 }

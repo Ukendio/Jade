@@ -4,7 +4,7 @@ export class NonNull<T> {
 		this.pointer = pointer;
 	}
 
-	static new_unchecked<T>(pointer: T) {
+	public static new_unchecked<T>(pointer: T): NonNull<T> {
 		return new this(pointer);
 	}
 

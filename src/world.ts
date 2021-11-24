@@ -2,7 +2,7 @@ import { HashMap, Result, Vec } from "@rbxts/rust-classes";
 import { Component, EntityRef, Ref } from "./entity_ref";
 import { Entities, Entity, NoSuchEntity } from "./entities";
 import { Archetype } from "./archetype";
-import todo from "@rbxts/todo";
+import { todo } from "@rbxts/todo";
 
 class QueryBorrow<w extends World, Q extends Query> {}
 
