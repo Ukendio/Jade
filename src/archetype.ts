@@ -65,7 +65,7 @@ class OrderedTypeIdMap<V> {
 
 	public default<T>(iter: Iterator<[TypeId, T]>): OrderedTypeIdMap<T> {
 		const vals = iter.collect().asPtr();
-		table.sort(vals, ([a], [b]) => b < a);
+		table.sort(vals, ([a], [b]) => b.type_id() < a.type_id());
 		return new OrderedTypeIdMap(Vec.fromPtr(vals));
 	}
 
@@ -141,6 +141,10 @@ class TypeId {
 
 	public static of<T>(): TypeId {
 		return new TypeId(todo());
+	}
+
+	public type_id(): number {
+		todo();
 	}
 }
 
