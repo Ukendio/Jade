@@ -206,11 +206,9 @@ export class Entities {
 		this.verify_flushed();
 
 		const loc = match(entity.id)
-			.with(
-				when((n: number) => n >= this.meta.len()),
-				() => {
-					return Option.none<Location>();
-				},
+			.when(
+				(n: number) => n >= this.meta.len(),
+				() => Option.none<Location>(),
 			)
 			.when(
 				() => this.pending.iter().position((item) => item === entity.id),
@@ -223,9 +221,9 @@ export class Entities {
 					return Option.none<Location>();
 				},
 			)
-			.otherwise(() =>
-				Option.some<Location>((this.meta.asPtr()[entity.id].location = EntityMeta.EMPTY().location)),
-			);
+			.otherwise(() => {
+				return Option.some<Location>((this.meta.asPtr()[entity.id].location = EntityMeta.EMPTY().location));
+			});
 
 		this.meta.asPtr()[entity.id].generation = entity.generation;
 
