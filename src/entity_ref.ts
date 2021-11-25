@@ -15,11 +15,6 @@ export class Location {
 	}
 }
 
-export class AtomicI64 {
-	public constructor(num: number) {}
-	public store(val: number): void {}
-}
-
 export class EntityRef<a extends Component> {
 	private archetype;
 	private entity_handle;
@@ -50,7 +45,10 @@ export class Ref<a, T extends Component> {
 		this.target = target;
 	}
 
-	static default<a, T extends Component>(archetype: Archetype<a>, index: number): Result<Ref<a, T>, NoSuchEntity> {
+	public static default<a, T extends Component>(
+		archetype: Archetype<a>,
+		index: number,
+	): Result<Ref<a, T>, NoSuchEntity> {
 		todo();
 		/*
 		return archetype.get_state().match(

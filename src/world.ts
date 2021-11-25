@@ -43,11 +43,13 @@ export class World {
 		const loc = this.entities.get(entity).unwrap();
 
 		// eslint-disable-next-line prettier/prettier
-		return Result.ok(new EntityRef(
-			this.archetypes.archetypes[loc.archetype], 
-			entity, 
-			loc.index
-		))
+		return Result.ok(
+			new EntityRef(
+				this.archetypes.archetypes[loc.archetype], 
+				entity, 
+				loc.index
+			)
+		)
 	}
 }
 
