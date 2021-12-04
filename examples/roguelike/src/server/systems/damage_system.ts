@@ -23,7 +23,12 @@ export namespace DamageSystem {
 			const combat_stats = world.query<[CombatStats]>().generator();
 
 			for (const [entity, [stats]] of combat_stats) {
-				if (stats.hp < 1) dead.push(entity);
+				if (stats.hp < 1) {
+					world.get<Player>(entity).match(
+						() => print("You are dead"),
+						() => dead.push(entity),
+					);
+				}
 			}
 		}
 

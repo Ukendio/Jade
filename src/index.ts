@@ -110,3 +110,11 @@ class Registry {
 }
 
 type Resource = {};
+
+export interface Serializable<T> {
+	serialize: () => WritableProperties<T>;
+}
+
+export interface Deserializable<T> {
+	deserialize: () => T;
+}
