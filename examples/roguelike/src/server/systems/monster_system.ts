@@ -1,7 +1,7 @@
 import Make from "@rbxts/make";
 import { match, __ } from "@rbxts/rbxts-pattern";
 import { Vec } from "@rbxts/rust-classes";
-import { World } from "world";
+import { World } from "@rbxts/jade";
 
 const orc = (world: World, pos: Vector3) => monster(world, pos, "Orc");
 const goblin = (world: World, pos: Vector3) => monster(world, pos, "Goblin");

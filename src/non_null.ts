@@ -1,8 +1,5 @@
 export class NonNull<T> {
-	private pointer;
-	public constructor(pointer: T) {
-		this.pointer = pointer;
-	}
+	public constructor(private pointer: T) {}
 
 	public static new_unchecked<T>(pointer: T): NonNull<T> {
 		return new this(pointer);

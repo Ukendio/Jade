@@ -84,13 +84,19 @@ class OrderedTypeIdMap<V> {
 
 type TypeIdMap<V> = HashMap<TypeId, V>;
 
-export class Archetype<a> {
-	public types: Vec<TypeInfo> = todo();
-	public index: OrderedTypeIdMap<number> = todo();
-	public len: number = todo();
-	public entities: [number] = todo();
-	public data: [Data] = todo();
-	public remove_edges: TypeIdMap<number> = todo();
+export class Archetype {
+	public constructor(
+		public types: Vec<TypeInfo>,
+		public index: OrderedTypeIdMap<number>,
+		public len: number,
+		public entities: Iterator<number>,
+		public data: Iterator<Data>,
+		public remove_edges: TypeIdMap<number>,
+	) {}
+
+	public allocate(id: number): number {
+		todo();
+	}
 
 	public get_state<T>(): Result<T, NoSuchEntity> {
 		todo();
@@ -103,6 +109,15 @@ export class Archetype<a> {
 	public borrow<T>(state: T): void {}
 
 	public release<T>(state: T): void {}
+
+	public remove(index: number, drop: boolean): Option<number> {
+		const last = this.len - 1;
+		for (const [ty, data] of this.types.iter().zip(this.data).generator()) {
+			todo();
+		}
+
+		todo();
+	}
 }
 
 interface Data {
@@ -110,11 +125,8 @@ interface Data {
 	storage: NonNull<number>;
 }
 
-class ColumnRef<a, T extends Component> {
-	public archetype: Archetype<a> = todo();
-	public column: [T] = todo();
-
-	private constructor(archetype: Archetype<a>, column: [T]) {}
+class ColumnRef<T extends Component> {
+	private constructor(public archetype: Archetype, public column: [T]) {}
 
 	public deref(): [T] {
 		return this.column;
@@ -125,7 +137,7 @@ class ColumnRef<a, T extends Component> {
 		this.archetype.release<T>(state);
 	}
 
-	public clone(): ColumnRef<never, T> {
+	public clone(): ColumnRef<T> {
 		const state = this.archetype.get_state<T>().unwrap();
 		this.archetype.borrow<T>(state);
 		return new ColumnRef(this.archetype, this.column);
@@ -149,7 +161,7 @@ class TypeId {
 }
 
 class TypeInfo {
-	private constructor(id: TypeId) {}
+	private constructor(public id: TypeId) {}
 
 	public static of<T>() {
 		return new TypeInfo(TypeId.of<T>());

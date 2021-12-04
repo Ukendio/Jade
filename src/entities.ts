@@ -5,14 +5,10 @@ import { Location } from "./entity_ref";
 const u32_MAX = 0xffff_ffff;
 
 class Range {
-	private range_start;
-	private range_end;
 	private idx;
 
-	public constructor(range_start: number, range_end: number) {
-		this.range_start = range_start;
+	public constructor(private range_start: number, private range_end: number) {
 		this.idx = range_start;
-		this.range_end = range_end;
 	}
 
 	public contains(n: number): boolean {
@@ -39,6 +35,10 @@ class Range {
 		return Iterator.fromItems(...buffer);
 	}
 
+	public into(): [number, number] {
+		return [this.range_start, this.range_end];
+	}
+
 	public *generator(): Generator<number> {
 		let item = this.next();
 		while (item.isSome()) {
@@ -59,12 +59,7 @@ function serialize<S extends Serde.Serializer>(serializer: S): <T extends Entity
 }
 
 export class Entity {
-	public generation;
-	public id;
-	public constructor(generation: number, id: number) {
-		this.generation = generation;
-		this.id = id;
-	}
+	public constructor(public generation: number, public id: number) {}
 
 	public to_bits(): number {
 		return this.generation << this.id;
@@ -90,7 +85,7 @@ export class ReserveEntitiesIterator {
 	}
 
 	public size_hint(): LuaTuple<[number, Option<number>]> {
-		const len = this.id_iter.sizeHint()[0] + this.id_iter.sizeHint()[0];
+		const len = this.id_iter.count() + this.id_range.iter().count();
 		return [len, Option.some(len)] as LuaTuple<[number, Option<number>]>;
 	}
 }
@@ -114,24 +109,16 @@ export class Entities {
 
 		const freelist_range = new Range(math.max(0, range_start), math.max(0, range_end));
 
-		const [new_id_start, new_id_end] = match(range_start)
-			.with(
-				when((n: number) => n >= 0),
-				() => [0, 0] as LuaTuple<[number, number]>,
-			)
-			.otherwise(() => {
-				const base = this.meta.len();
+		const base = this.meta.len();
 
-				const new_id_end = base - range_start;
-
-				const new_id_start = base - math.min(0, range_end);
-
-				return [new_id_start, new_id_end] as LuaTuple<[number, number]>;
-			});
+		const [new_id_start, new_id_end] =
+			range_start >= 0
+				? ([0, 0] as LuaTuple<[number, number]>)
+				: [base - math.min(range_end), range_start - base];
 
 		return new ReserveEntitiesIterator(
 			this.meta.asPtr(),
-			this.pending.drain([range_start, range_end]),
+			this.pending.drain(freelist_range.into()),
 			new Range(new_id_start, new_id_end),
 		);
 	}
@@ -333,13 +320,7 @@ export class Entities {
 }
 
 class AllocManyState {
-	public pending_end;
-	private fresh;
-
-	public constructor(pending_end: number, fresh: Range) {
-		this.pending_end = pending_end;
-		this.fresh = fresh;
-	}
+	public constructor(public pending_end: number, public fresh: Range) {}
 
 	public next(entities: Entities): Option<number> {
 		if (this.pending_end < entities.pending.len()) {
@@ -354,14 +335,8 @@ class AllocManyState {
 	}
 }
 
-class EntityMeta {
-	public generation: number;
-	public location: Location;
-
-	public constructor(generation: number, location: Location) {
-		this.generation = generation;
-		this.location = location;
-	}
+export class EntityMeta {
+	public constructor(public generation: number, public location: Location) {}
 
 	public static EMPTY(): EntityMeta {
 		return new EntityMeta(1, new Location(0, u32_MAX));

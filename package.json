@@ -38,6 +38,7 @@
     "typescript": "^4.3.3"
   },
   "dependencies": {
+    "@rbxts/jade": "^0.0.0-prototyping",
     "@rbxts/make": "^1.0.6",
     "@rbxts/object-utils": "^1.0.4",
     "@rbxts/rbxts-pattern": "^1.0.1",
