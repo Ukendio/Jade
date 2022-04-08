@@ -52,6 +52,4 @@ Jade is far from production-ready unlike these existing ECS libraires for Roblox
 - [Anatta](https://github.com/kennethloeffler/anatta), which is arguably the most popular ECS implementation.
 - [Recs](https://github.com/AmaranthineCodices/recs), which is one of the oldest yet still maintained repository.
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-I fucking miss you Jade 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
