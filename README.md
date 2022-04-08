@@ -1,3 +1,5 @@
+# Paused until I can figure out a good way to do reflection for types or maybe another solution like using Matter for reference.
+
 # Jade
 
 Attempt at porting [Hecs](https://github.com/Ralith/hecs) made by Ralith to Roblox. Semantically identical API and documentation.
